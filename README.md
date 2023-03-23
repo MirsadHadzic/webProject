@@ -2,5 +2,5 @@
 
 Collaborators:
 
-{Hadzic Mirsad}
+{Hadzic Mirsad\n}
 {Faris Kovac}
