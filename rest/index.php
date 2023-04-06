@@ -10,6 +10,6 @@ Flight::register('todo_service', "ToDoService");
 
 require_once('routes/ToDoRoutes.php');
 
-// ide uvijek, da bi se startalo uopste
+// ide uvijek, da bi se startalo uopste*/
 Flight::start();
 ?>
