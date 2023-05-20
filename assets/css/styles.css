@@ -31,6 +31,9 @@ form button {
     border: none;
     background: white;
     border-radius: 2rem;
+    color: black; /* Updated color property */
+    /* Add a box-shadow to provide visual distinction */
+    box-shadow: 0 0 0 2px white;
 }
 
 form button {
@@ -72,6 +75,7 @@ form button:hover {
 .todo-list {
     min-width: 30%;
     list-style: none;
+    color: black; /* Updated color property */
 }
 
 .todo {
@@ -178,4 +182,14 @@ select {
 .select::hover::after {
     background: white;
     color: rgb(255, 200, 0);
+}
+
+
+input[type="text"] {
+    /* Remove the background color */
+    background-color: transparent;
+    /* Update the text color to black */
+    color: black;
+    /* Add a text-shadow to provide contrast */
+    text-shadow: 0 0 2px white;
 }

@@ -8,11 +8,16 @@ todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 filterOption.addEventListener("change", filterTodo);
 
-function addTodo(event) {
+/*function addTodo(event) {
     /*event.preventDefault(); - this method prevents the default 
     behavior of the form when the "Add" button is clicked, 
-    which is to submit the form to the server and refresh the page.*/
+    which is to submit the form to the server and refresh the page.
     event.preventDefault();
+
+    if (todoInput.value.trim() === '') {
+    return; // Don't add todo if the input is empty or contains only whitespace
+  }
+
     // u divu ispod ide tekst, completed button i delete kanta
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
@@ -35,7 +40,61 @@ function addTodo(event) {
     
     todoList.appendChild(todoDiv);
     todoInput.value = "";
-}
+}*/
+
+function addTodo(event) {
+    event.preventDefault();
+  
+    if (todoInput.value.trim() === '') {
+      return; // Don't add todo if the input is empty or contains only whitespace
+    }
+  
+    const todoText = todoInput.value;
+  
+    // Create a new todo object with the necessary properties
+    const newTodo = {
+      text: todoText,
+      completed: false
+    };
+  
+    // Make an AJAX POST request to add the new todo to the database
+    $.ajax({
+      url: 'localhost/webProject/rest/routes/ToDoRoutes.php',
+      method: 'POST',
+      data: newTodo,
+      success: function(response) {
+        // Handle the successful response
+        const todo = response.todo;
+  
+        const todoDiv = document.createElement('div');
+        todoDiv.classList.add('todo');
+        const newTodo = document.createElement('li');
+        newTodo.innerText = todo.text;
+        newTodo.classList.add('todo-item');
+        todoDiv.appendChild(newTodo);
+  
+        const completedButton = document.createElement('button');
+        completedButton.innerHTML = '<i class="fas fa-check-circle"></i>';
+        completedButton.classList.add('complete-btn');
+        todoDiv.appendChild(completedButton);
+  
+        const trashButton = document.createElement('button');
+        trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+        trashButton.classList.add('trash-btn');
+        todoDiv.appendChild(trashButton);
+  
+        todoList.appendChild(todoDiv);
+        todoInput.value = '';
+      },
+      error: function(error) {
+        // Handle the error
+        console.log(error);
+      }
+    });
+  
+    // Clear the input field
+    todoInput.value = '';
+  }
 
 function deleteCheck(e) {
     const item = e.target;

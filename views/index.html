@@ -1,42 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <!-- Font Awesome cdn css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <title>To Do List</title>
+  <title>Web Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/spapp.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+  <link href="../assets/css/freelancer.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+
+  <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+  <script src="../assets/js/jquery.spapp.js"></script>
+  <script src="../assets/js/custom.js"></script>
+  <script src="../assets/js/intro.js"></script>
 </head>
 <body>
-
-    <header>
-        <h1>My To Do List</h1>
-    </header>
-    <form action="">
-        <input type="text" class="todo-input">
-        <button class="todo-button" type="submit">
-            <i class="fas fa-plus-circle fa-lg"></i>
-        </button>
-        <div class="select">
-            <select name="todos" class="filter-todo">
-                <option value="all">All</option>
-                <option value="completed">Completed</option>
-                <option value="incomplete">Incomplete</option>
-            </select>
-        </div>
-    </form>
-
-    <div class="todo-container">
-        <ul class="todo-list"></ul>
+  
+  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">ToDo Project</a>
+      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<i class="fas fa-bars"></i></button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="todo.html" id="todo-link">Todo</a>
+          </li>
+        </ul>
+      </div>
     </div>
-
-    <script src="../assets/js/script.js"></script>
-    
+  </nav>
+  <main>
+    <section id="page-top">
+      <!-- Content of the #page-top section... -->
+    </section>
+  
+  <main id="spapp">
+    <section class="page-section" id="todo-content">
+      <!-- Content from todo.html will be loaded here -->
+    </section>
+  </main>
 </body>
+<script>
+  $(document).ready(function() {
+    $("#todo-link").click(function(e) {
+      e.preventDefault();
+      $("#page-top").hide(); // Hide the #page-top section
+      $("#todo-content").load("todo.html", function() {
+        $("#todo-content").show(); // Show the #todo-content after loading todo.html
+        window.location.hash = "todo"; // Update the URL hash to #todo
+      });
+    });
+
+    $(".navbar-brand").click(function(e) {
+      e.preventDefault();
+      window.location.href = "http://localhost/webProject/views/index.html#page-top";
+      $("#todo-content").html(""); // Clear the content of the #todo-content section
+      $("#todo-content").hide(); // Hide the #todo-content section
+    });
+  });
+</script>
 </html>
