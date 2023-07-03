@@ -1,4 +1,6 @@
-# web-project-2
+#webProject
+Collaborators:
 
+{Hadzic Mirsad} {Faris Kovac}
 
-EDITOR
+WebProject using FLightPHP as backend.
