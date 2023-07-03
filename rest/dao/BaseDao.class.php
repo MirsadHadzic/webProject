@@ -10,6 +10,13 @@ require_once __DIR__."/../Config.class.php";
     */
     public function __construct($table_name){
 try {
+    /*    $this->table_name = $table_name;
+          $servername = Config::DB_HOST();
+          $username = Config::DB_USERNAME();
+          $password = Config::DB_PASSWORD();
+          $schema = Config::DB_SCHEMA();
+    */
+
             $this->table_name = $table_name;
             $username = 'doadmin';
             $password = 'AVNS_FbQVVGD3PrFnxi9mdk3';
