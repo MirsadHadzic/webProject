@@ -3,8 +3,7 @@
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-
- /**
+/**
 * @OA\Post(
 *     path="/login", 
 *     description="Login",
@@ -27,7 +26,9 @@ use Firebase\JWT\Key;
 * )
 */
 Flight::route('POST /login', function(){
+  //echo "<script>console.log('connected: ' );</script>";
     $login = Flight::request()->data->getData();
+    echo ('a');
     $user = Flight::userDao()->get_user_by_email($login['email']);
     if(count($user) > 0){
         $user = $user[0];
@@ -45,7 +46,4 @@ Flight::route('POST /login', function(){
       Flight::json(["message" => "User doesn't exist"], 404);
   }
 });
-
-
-
- ?>
+?>
