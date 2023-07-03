@@ -9,29 +9,17 @@ require_once __DIR__."/../Config.class.php";
     * Class constructor used to establish connection to db
     */
     public function __construct($table_name){
-        try {
-          $this->table_name = $table_name;
-          $servername = Config::DB_HOST();
-          $username = Config::DB_USERNAME();
-          $password = Config::DB_PASSWORD();
-          $schema = Config::DB_SCHEMA();
-          $username = 'doadmin';
-          $password = 'AVNS_FbQVVGD3PrFnxi9mdk3';
-          /*
-          $options = array(
-            PDO::MYSQL_ATTR_SSL_CA => 'https://drive.google.com/file/d/1zqyqk92mI4A4cAW43nhnCWxEveGSkY7k/view?usp=sharing',
-            PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false
-        );
-        */
-          //$this->conn = new PDO("mysql:host=$servername;dbname=$schema", $username, $password);//, $options);
-          $this->conn = new PDO("mysql://doadmin:AVNS_FbQVVGD3PrFnxi9mdk3@web-project-do-user-14099042-0.b.db.ondigitalocean.com:25060/web-project?ssl-mode=REQUIRED", $username, $password);
-          // set the PDO error mode to exception
-          $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          //echo "<script>console.log('connected: ' );</script>";
+try {
+            $this->table_name = $table_name;
+            $username = 'doadmin';
+            $password = 'AVNS_FbQVVGD3PrFnxi9mdk3';
+            $dsn = "mysql:host=web-project-do-user-14099042-0.b.db.ondigitalocean.com;port=25060;dbname=web-project;sslmode=require";
+
+            $this->conn = new PDO($dsn, $username, $password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
-          //  echo "<script>console.log('connected: ' );</script>";
-          //echo "Connection failed: " . $e->getMessage();
-          //echo "<script>console.log('Connection failed: ' . $e->getMessage());</script>";
+            // Handle the exception or log the error message
+            echo "Connection failed: " . $e->getMessage();
         }
     }
 
