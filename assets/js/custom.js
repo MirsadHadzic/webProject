@@ -6,7 +6,7 @@ $(document).ready(function () {
     view: "todo",
     load: "todo.html",
   });
-  app.route({
+  /*app.route({
     view: "highcharts",
     load: "highcharts.html",
   });
@@ -34,7 +34,7 @@ $(document).ready(function () {
   app.route({
     view: "form",
     load: "form.html",
-  });
+  });*/
 
   // run app
   app.run();

@@ -92,7 +92,7 @@
       id="mainNav"
     >
       <div class="container">
-        <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
+        <a class="navbar-brand" href="#page-top">Click on Todo -></a>
         <button
           class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
           type="button"
@@ -285,7 +285,7 @@
         var nav =
           '<li class="nav-item mx-0 mx-lg-1">' +
           '<a class="nav-link py-3 px-0 px-lg-3 rounded " href="#todo">Todo</a>' +
-          "</li>" +
+          "</li>" /*+
           '<li class="nav-item mx-0 mx-lg-1">' +
           '<a class="nav-link py-3 px-0 px-lg-3 rounded " href="#highcharts">Highcharts</a>' +
           "  </li>" +
@@ -300,31 +300,31 @@
           "</li>" +
           '<li class="nav-item mx-0 mx-lg-1">' +
           '<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#form">Form</a>' +
-          "</li>";
+          "</li>"*/;
         $("#tabs").html(nav);
 
         var main =
-          '<section id="todo">Todo</section>' +
-          '<section id="highcharts">Highcharts</section>' +
+          '<section id="todo">Todo</section>'
+          /*'<section id="highcharts">Highcharts</section>' +
           '<section id="datatable"><h1>Datatable</h1></section>' +
           '<section id="ex1"><h1>Example 1</h1></section>' +
           '<section id="ex2"><h1>Example 2</h1></section>' +
-          '<section id="form"><h1>Form</h1></section>';
+          '<section id="form"><h1>Form</h1></section>'*/;
         $("#spapp").html(main);
       } else {
         var nav =
           '<li class="nav-item mx-0 mx-lg-1">' +
           '<a class="nav-link py-3 px-0 px-lg-3 rounded " href="#todo">Todo</a>' +
-          "  </li>" +
+          "  </li>" /*+
           '<li class="nav-item mx-0 mx-lg-1">' +
           '<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#form">Form</a>' +
-          "</li>";
+          "</li>"*/;
         $("#tabs").html(nav);
 
-        var main =
+        /*var main =
           '<section id="highcharts">Highcharts</section>' +
           '<section id="form"><h1>Form</h1></section>';
-        $("#spapp").html(main);
+        $("#spapp").html(main);*/
       }
     } else {
       window.location.replace("login.html");
