@@ -4,3 +4,6 @@ Collaborators:
 {Hadzic Mirsad} {Faris Kovac}
 
 WebProject using FLightPHP as backend.
+
+Deployed App:
+https://king-prawn-app-dxcl4.ondigitalocean.app/login.html

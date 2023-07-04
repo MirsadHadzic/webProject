@@ -17,10 +17,20 @@ try {
           $schema = Config::DB_SCHEMA();
     */
 
-            $this->table_name = $table_name;
+            /*$this->table_name = $table_name;
             $username = 'doadmin';
             $password = 'AVNS_FbQVVGD3PrFnxi9mdk3';
             $dsn = "mysql:host=web-project-do-user-14099042-0.b.db.ondigitalocean.com;port=25060;dbname=web-project;sslmode=require";
+
+            $this->conn = new PDO($dsn, $username, $password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);*/
+            $this->table_name = $table_name;
+            $servername = Config::DB_HOST();
+            $username = Config::DB_USERNAME();
+            $password = Config::DB_PASSWORD();
+            $schema = Config::DB_SCHEMA();
+            
+            $dsn = "mysql:host=$servername;dbname=$schema;port=" . Config::DB_PORT() . ";sslmode=require";
 
             $this->conn = new PDO($dsn, $username, $password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

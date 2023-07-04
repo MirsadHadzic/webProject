@@ -1,10 +1,31 @@
 <?php
+use OpenApi\Annotations as OA;
 /**
- * @OA\Get(path="/students", tags={"students"}, security={{"ApiKeyAuth": {}}},
- *         summary="Return all students from the API. ",
- *         @OA\Response( response=200, description="List of students.")
+ * @OA\Get(
+ *     path="/todo",
+ *     tags={"todos"},
+ *     summary="Get todos",
+ *     description="Retrieves a list of todos based on the user's role",
+ *     security={{"ApiKeyAuth": {}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/Todo")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized - User is not authenticated"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden - User is not authorized to access this resource"
+ *     )
  * )
  */
+
 Flight::route("GET /todo", function(){
     $user = Flight::get('user');
     if($user['is_admin']){
@@ -14,12 +35,36 @@ Flight::route("GET /todo", function(){
     }
  });
 
-  /**
-  * @OA\Get(path="/student_by_id", tags={"students"}, security={{"ApiKeyAuth": {}}},
-  *     @OA\Parameter(in="query", name="id", example=1, description="Student ID"),
-  *     @OA\Response(response="200", description="Fetch individual student")
-  * )
-  */
+/**
+ * @OA\Get(
+ *     path="/todo_by_id",
+ *     tags={"todos"},
+ *     summary="Get a specific todo by ID",
+ *     description="Retrieves a specific todo based on the user's role and the provided ID",
+ *     security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="query",
+ *         description="The ID of the todo",
+ *         required=true,
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(ref="#/components/schemas/Todo")
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized - User is not authenticated"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden - User is not authorized to access this resource"
+ *     )
+ * )
+ */
+
  Flight::route("GET /todo_by_id", function(){
      $user = Flight::get('user');
      if($user['is_admin']){
@@ -29,12 +74,36 @@ Flight::route("GET /todo", function(){
      }
  });
 
- /**
-  * @OA\Get(path="/students/{id}", tags={"students"}, security={{"ApiKeyAuth": {}}},
-  *     @OA\Parameter(in="path", name="id", example=1, description="Student ID"),
-  *     @OA\Response(response="200", description="Fetch individual student")
-  * )
-  */
+/**
+ * @OA\Get(
+ *     path="/todo/{id}",
+ *     tags={"todos"},
+ *     summary="Get a specific todo by ID",
+ *     description="Retrieves a specific todo based on the user's role and the provided ID",
+ *     security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         description="The ID of the todo",
+ *         required=true,
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(ref="#/components/schemas/Todo")
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized - User is not authenticated"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden - User is not authorized to access this resource"
+ *     )
+ * )
+ */
+
  Flight::route("GET /todo/@id", function($id){
      $user = Flight::get('user');
      if($user['is_admin']){
@@ -44,22 +113,44 @@ Flight::route("GET /todo", function(){
      }
  });
 
- /**
+/**
  * @OA\Delete(
- *     path="/students/{id}", security={{"ApiKeyAuth": {}}},
- *     description="Delete student",
- *     tags={"students"},
- *     @OA\Parameter(in="path", name="id", example=1, description="Student ID"),
- *     @OA\Response(
- *         response=200,
- *         description="Note deleted"
+ *     path="/todo/{id}",
+ *     tags={"todos"},
+ *     summary="Delete a specific todo by ID",
+ *     description="Deletes a specific todo based on the user's role and the provided ID",
+ *     security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         description="The ID of the todo",
+ *         required=true,
+ *         @OA\Schema(type="integer")
  *     ),
  *     @OA\Response(
- *         response=500,
- *         description="Error"
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             properties={
+ *                 "message": {
+ *                     type="string",
+ *                     example="todo deleted successfully"
+ *                 }
+ *             }
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized - User is not authenticated"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden - User is not authorized to access this resource"
  *     )
  * )
  */
+
  Flight::route("DELETE /todo/@id", function($id){
     $user = Flight::get('user');
     if($user['is_admin']){
@@ -70,30 +161,45 @@ Flight::route("GET /todo", function(){
     Flight::json(['message' => "todo deleted successfully"]);
  });
 
- /**
-* @OA\Post(
-*     path="/student", security={{"ApiKeyAuth": {}}},
-*     description="Add student",
-*     tags={"students"},
-*     @OA\RequestBody(description="Add new student", required=true,
-*       @OA\MediaType(mediaType="application/json",
-*    			@OA\Schema(
-*    				@OA\Property(property="first_name", type="string", example="Demo",	description="Student first name"),
-*    				@OA\Property(property="last_name", type="string", example="Student",	description="Student last name" ),
-*                   @OA\Property(property="email", type="string", example="demo@gmail.com",	description="Student email" ),
-*                   @OA\Property(property="password", type="string", example="12345",	description="Password" ),
-*        )
-*     )),
-*     @OA\Response(
-*         response=200,
-*         description="Student has been added"
-*     ),
-*     @OA\Response(
-*         response=500,
-*         description="Error"
-*     )
-* )
-*/
+/**
+ * @OA\Post(
+ *     path="/todo",
+ *     tags={"todos"},
+ *     summary="Add a new todo",
+ *     description="Adds a new todo based on the user's role and the provided request data",
+ *     security={{"ApiKeyAuth": {}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(ref="#/components/schemas/TodoRequest")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             properties={
+ *                 "message": {
+ *                     type="string",
+ *                     example="todo added successfully"
+ *                 },
+ *                 "data": {
+ *                     type="object",
+ *                     ref="#/components/schemas/Todo"
+ *                 }
+ *             }
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized - User is not authenticated"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden - User is not authorized to access this resource"
+ *     )
+ * )
+ */
+
  Flight::route("POST /todo", function(){
     $user = Flight::get('user');
     $request = Flight::request()->data->getData();
@@ -103,31 +209,52 @@ Flight::route("GET /todo", function(){
  });
 
 
- /**
+/**
  * @OA\Put(
- *     path="/student/{id}", security={{"ApiKeyAuth": {}}},
- *     description="Edit student",
- *     tags={"students"},
- *     @OA\Parameter(in="path", name="id", example=1, description="Student ID"),
- *     @OA\RequestBody(description="Student info", required=true,
- *       @OA\MediaType(mediaType="application/json",
- *    			@OA\Schema(
- *    				@OA\Property(property="first_name", type="string", example="Demo",	description="Student first name"),
- *    				@OA\Property(property="last_name", type="string", example="Student",	description="Student last name" ),
- *                  @OA\Property(property="email", type="string", example="demo@gmail.com",	description="Student email" ),
- *                  @OA\Property(property="password", type="string", example="12345",	description="Password" ),
- *        )
- *     )),
- *     @OA\Response(
- *         response=200,
- *         description="Student has been edited"
+ *     path="/todo/{id}",
+ *     tags={"todos"},
+ *     summary="Update a specific todo by ID",
+ *     description="Updates a specific todo based on the user's role, the provided ID, and the request data",
+ *     security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         description="The ID of the todo",
+ *         required=true,
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(ref="#/components/schemas/TodoRequest")
  *     ),
  *     @OA\Response(
- *         response=500,
- *         description="Error"
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             properties={
+ *                 "message": {
+ *                     type="string",
+ *                     example="todo edit successfully"
+ *                 },
+ *                 "data": {
+ *                     type="object",
+ *                     ref="#/components/schemas/Todo"
+ *                 }
+ *             }
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized - User is not authenticated"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden - User is not authorized to access this resource"
  *     )
  * )
  */
+
  Flight::route("PUT /todo/@id", function($id){
     $user = Flight::get('user');
     $todo = Flight::request()->data->getData();
